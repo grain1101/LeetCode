@@ -30,6 +30,5 @@ int main()
     Solution s1;
     s1.twoSum();
 
-
     return 0;
 }
