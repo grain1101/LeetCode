@@ -42,10 +42,12 @@ class Solution {
             left[i] = st.size() ? st.top() + 1 : 0;
             st.push(i);
         }
+        // clear stack st
+        while(st.size()) st.pop();
         // fill in right array
         for(int i = height.size() - 1; i >= 0; i--){
             while(st.size() && height[st.top()] >= height[i]) st.pop();
-            right[i] = st.size() ? st.top() - 1 : 0;
+            right[i] = st.size() ? st.top() - 1 : height.size() - 1;
             st.push(i);
         }
         // calculate largest rectangle
