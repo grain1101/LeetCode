@@ -38,17 +38,17 @@ class Solution {
 public:
     // 112. Path Sum
     void dfs(TreeNode* root, int sum, int cur, bool& flag){
-        if (cur == sum) {
+        if (cur == sum && root->left == nullptr && root->right == nullptr) {
             flag = true;
             return;
         }
-        if (root->left) dfs(root->left, sum, cur + root->val, flag);
-        if (root->right) dfs(root->right, sum, cur + root->val, flag);
+        if (root->left) dfs(root->left, sum, cur + root->left->val, flag);
+        if (root->right) dfs(root->right, sum, cur + root->right->val, flag);
     }
     bool hasPathSum(TreeNode* root, int sum) {
         if (root == nullptr) return false;
         bool flag = false;
-        dfs(root, sum, 0, flag);
+        dfs(root, sum, root->val, flag);
         return flag;
     }
 };
