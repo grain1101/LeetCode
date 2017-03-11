@@ -44,23 +44,21 @@ class Solution {
 public:
     // 119. Pascal's Triangle II
     vector<int> getRow(int rowIndex) {
-        if (rowIndex < 0) return {};
-        vector<int> before = {1};
-        for(int i = 2; i <= rowIndex + 1; i++){
-            vector<int> ans(i, 1);
-            for(int j  = 1; j < i - 1; j++){
-                ans[j] = before[j - 1] + before[j];
+        vector<int> ans(rowIndex + 1, 0);
+        ans[0] = 1;
+        for(int i = 1; i < rowIndex + 1; i++){
+            for(int j = i; j > 0; j--){
+                ans[j] += ans[j - 1];
             }
-            before = ans;
         }
-        return before;
+        return ans;
     }
 };
 
 
 int main() {
     Solution s1;
-    auto result = s1.getRow(3);
+    auto result = s1.getRow(5);
     for(auto r : result)
         cout << r << " ";
     cout << endl;
