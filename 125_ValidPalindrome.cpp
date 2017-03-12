@@ -49,23 +49,21 @@ class Solution {
 public:
     // 125. Valid Palindrome
     bool isPalindrome(string s) {
-        if (s.size() == 0) return true;
-        string tmp;
-        for(int i = 0; i < s.size(); i++){
-            if (isalnum(s[i])){
-                tmp += tolower(s[i]);
-            }
+        int i = 0, j = s.size() - 1;
+        bool flag = true;
+        while(i < j && flag){
+            while(!isalnum(s[i])) i++;
+            while (!isalnum(s[j])) j--;
+            if (i < j && tolower(s[i++]) != tolower(s[j--])) flag = false;
         }
-        string isPalindrome = tmp;
-        reverse(tmp.begin(), tmp.end());
-        return tmp == isPalindrome;
+        return flag;
     }
 };
 
 
 int main() {
     Solution s1;
-    string s = "race a car";
+    string s = "A man, a plan, a canal: Panama";
     auto result = s1.isPalindrome(s);
     cout << result << endl;
 }
