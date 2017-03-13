@@ -48,36 +48,18 @@ struct TreeLinkNode {
 class Solution {
 public:
     // 129. Sum Root to Leaf Numbers
-    void dfs(TreeNode* root, int& ans, vector<int>& path){
-        if (root->left == nullptr && root->right == nullptr){
-            int cur = 0;
-            for(int i = 0; i < path.size(); i++){
-                cur = cur * 10 + path[i];
-            }
-            cur = cur * 10 + root->val;
-            cout << cur << endl;
-            ans += cur;
-            return;
-        }
-        path.push_back(root->val);
-        if (root->left) dfs(root->left, ans, path);
-        if (root->right) dfs(root->right, ans, path);
-        path.pop_back();
+    int dfs(TreeNode* root, int ans){
+        if (root == nullptr) return 0;
+        ans = ans * 10 + root->val;
+        if (root->left == nullptr && root->right == nullptr) return ans;
+        return dfs(root->left, ans) + dfs(root->right, ans);
     }
     int sumNumbers(TreeNode* root) {
-        if (root == nullptr) return 0;
-        int ans = 0;
-        vector<int> path;
-        dfs(root, ans, path);
-        return ans;
+        return dfs(root, 0);
     }
 };
 
 int main() {
     Solution s1;
-    vector<string> ss = {"hot","dot","dog","lot","log","cog"};
-    //auto result = s1.findLadders("hit","cog",ss);
-    vector<int> v = {4,2,2,-4,0,-2,4,-3,-4,-4,-5,1,4,-9,5,0,6,-8,-1,-3,6,5,-8,-1,-5,-1,2,-9,1};
-    cout << Solution().longestConsecutive(v) << endl;
-    //show(result);
+
 }
