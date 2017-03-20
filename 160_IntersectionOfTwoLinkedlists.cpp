@@ -38,32 +38,12 @@ class Solution {
 public:
     // 160. Intersection of Two Linked Lists
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        if (headA == nullptr || headB == nullptr) return nullptr;
-        int lenA = 0, lenB = 0;
-        for(ListNode *p = headA; p; p=p->next){
-            lenA++;
+        ListNode *p = headA, *q = headB;
+        while(p ! = q){
+            p = p ? p->next : headA;
+            q = q ? q->next : headB;
         }
-        for(ListNode *p = headB; p; p=p->next){
-            lenB++;
-        }
-        ListNode *first, *second;
-        int len = 0;
-        if (lenA > lenB) {
-            first = headA;
-            second = headB;
-            len = lenA - lenB;
-        } else {
-            first = headB;
-            second = headA;
-            len = lenB - lenA;
-        }
-        while(len--){
-            first = first->next;
-        }
-        for(;first && second; first=first->next, second=second->next){
-            if (first == second) return first;
-        }
-        return nullptr;
+        return p;
     }
 };
 
