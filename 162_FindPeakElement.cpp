@@ -37,8 +37,15 @@ struct ListNode {
 class Solution {
 public:
     // 162. Find Peak Element
-    int findPeakElement(vector<int>& nums) {
-
+    int findPeakElement(vector<int>& num) {
+        int l = 0, r = num.size() - 1;
+        while(l < r){
+            int mid = (l + r) / 2;
+            int mid2 = mid + 1;
+            if (num[mid] < num[mid2]) l = mid2;
+            else r = mid;
+        }
+        return l;
     }
 };
 
