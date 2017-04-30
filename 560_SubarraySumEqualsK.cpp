@@ -35,20 +35,14 @@ public:
     int subarraySum(vector<int>& nums, int k) {
         int ans = 0;
         if (nums.size() == 0) return ans;
-        vector<int> preSum(nums.size());
-        preSum[0] = nums[0];
-        for(int i = 1; i < nums.size(); i++){
-            preSum[i] = preSum[i - 1] + nums[i];
-        }
+        int preSum = 0;
+        unordered_map<int,int> hashSum;
         for(int i = 0; i < nums.size(); i++){
-            if (preSum[i] == k) ans++;
-            if (i > 0){
-                int p = 0;
-                while(p < i){
-                    if (preSum[i] - preSum[p] == k) ans ++;
-                    p++;
-                }
-            }
+            preSum = preSum + nums[i];
+            int tmp = preSum - k;
+            if (tmp == 0) ans++;
+            if (hashSum.find(tmp) != hashSum.end()) ans += hashSum[tmp];
+            hashSum[preSum]++;
         }
         return ans;
     }
@@ -56,8 +50,8 @@ public:
 
 int main() {
     Solution s1;
-    vector<int> nums = {1,1,1};
-    int k = 2;
+    vector<int> nums = {1,0,-1};
+    int k = 0;
     auto ans = s1.subarraySum(nums, k);
     cout << ans << endl;
     //show(ans);
