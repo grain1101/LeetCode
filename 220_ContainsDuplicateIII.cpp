@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
+#include <cstring>
+#include <algorithm>
+#include <stack>
+#include <queue>
+#include <cstdio>
+#include <cstdlib>
+#include <sstream>
+#include <limits>
+#include <set>
+#include <string>
+#include<list>
+using namespace std;
+
+void show(auto& result){
+    for(auto r : result){
+        for(auto t : r){
+            cout << t << " ";
+        }
+        cout << endl;
+    }
+}
+void showV(auto& result){
+    for(auto r : result)
+        cout << r << " ";
+    cout << endl;
+}
+
+
+class Solution {
+public:
+    // 220. Contains Duplicate III
+    bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
+        set<int> window;
+        for (int i = 0; i < nums.size(); i++) {
+            if (i > k) window.erase(nums[i-k-1]); // keep the set contains nums i j at most k
+            // |x - nums[i]| <= t  ==> -t <= x - nums[i] <= t;
+            auto pos = window.lower_bound(nums[i] - t); // x-nums[i] >= -t ==> x >= nums[i]-t
+            // x - nums[i] <= t ==> |x - nums[i]| <= t
+            if (pos != window.end() && *pos - nums[i] <= t) return true;
+            window.insert(nums[i]);
+        }
+        return false;
+    }
+};
+
+int main() {
+    Solution s1;
+    vector<int> nums = {0,1,2,3};
+    auto ans = s1.containsNearbyAlmostDuplicate(nums,3,3);
+    cout << ans << endl;
+    //show(ans);
+    //showV(ans);
+}
