@@ -29,41 +29,52 @@ void showV(auto& result){
     cout << endl;
 }
 
-struct SwapLine{
-    int x;
-    int y;
-    bool in;
-    SwapLine(int X, int Y, bool In): x(X), y(Y), in(In){};
-    bool operator<(const SwapLine& a) const {
-        if (a.x != x) return x < a.x;
-        if (a.y != y) return y < a.y;
-        return a.in < in;
-    }
-    void show(){
-        cout << x << " " << y << " " << in << endl;
-    }
-};
 class Solution {
 public:
     // 221. Maximal Square
-    bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
-        set<long long> window;
-        for (int i = 0; i < nums.size(); i++) {
-            if (i > k) window.erase(nums[i-k-1]); // keep the set contains nums i j at most k
-            // |x - nums[i]| <= t  ==> -t <= x - nums[i] <= t;
-            auto pos = window.lower_bound(nums[i] * 1ll - t); // x-nums[i] >= -t ==> x >= nums[i]-t
-            // x - nums[i] <= t ==> |x - nums[i]| <= t
-            if (pos != window.end() && *pos*1ll - nums[i]*1ll <= t * 1ll) return true;
-            window.insert(nums[i] * 1ll);
+    // same as 85
+    int calc(vector<int>& h) {
+        int n = h.size();
+        vector<int> left(n, 0), right(n, n - 1);
+        stack<int> st;
+        for(int i = 0; i < n; i ++) {
+            while(!st.empty() && h[st.top()] >= h[i]) st.pop();
+            if (!st.empty()) left[i] = st.top() + 1;
+            st.push(i);
         }
-        return false;
+        while(!st.empty()) st.pop();
+        for(int i = n - 1; i >= 0; i --) {
+            while(!st.empty() && h[st.top()] >= h[i]) st.pop();
+            if (!st.empty()) right[i] = st.top() - 1;
+            st.push(i);
+        }
+        int ret = 0;
+        for(int i = 0; i < n; i ++) {
+            //ret = max(h[i], ret);
+            int tmp = min(h[i], right[i] - left[i] + 1);
+            ret = max(ret, tmp);
+        }
+        return ret;
+    }
+    // 221. Maximal Square
+    int maximalSquare(vector<vector<char>>& matrix) {
+        int ans = 0;
+        if (matrix.size() == 0 || matrix[0].size() == 0) return ans;
+        vector<int> height(matrix[0].size());
+        for(int i = 0; i < matrix.size(); i++){
+            for(int j = 0; j < matrix[0].size(); j++){
+                height[j] = matrix[i][j] == '0' ? 0 : height[j] + 1;
+            }
+            ans = max(ans, calc(height));
+        }
+        return ans * ans;
     }
 };
 
 int main() {
     Solution s1;
     vector<int> nums = {-2147483648,-2147483647};
-    auto ans = s1.containsNearbyAlmostDuplicate(nums,3,3);
+    auto ans = s1.maximalSquare();
     cout << ans << endl;
     //show(ans);
     //showV(ans);
