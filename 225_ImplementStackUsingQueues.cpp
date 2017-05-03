@@ -29,54 +29,45 @@ void showV(auto& result){
     cout << endl;
 }
 
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
 class MyStack {
 public:
-    // 225. Implement Stack using Queues
     /** Initialize your data structure here. */
-    MyStack(): q(vector<queue<int>>(2)), activeIdx(0) {
-    }
+    queue<int> que;
 
     /** Push element x onto stack. */
     void push(int x) {
-        pushQueue(x, activeIdx);
+        que.push(x);
+        for(int i = 0; i < que.size() - 1; i++){
+        	que.push(que.front());
+        	que.pop();
+        }
     }
 
     /** Removes the element on top of the stack and returns that element. */
     int pop() {
-        emptyQueue();
-        int ret = q[activeIdx].front();
-        q[activeIdx].pop();
-        activeIdx ^= 1;
+        int ret = que.front();
+        que.pop();
         return ret;
     }
 
     /** Get the top element. */
     int top() {
-        emptyQueue();
-        int ret = q[activeIdx].front();
-        q[activeIdx ^ 1].push(q[activeIdx].front());
-        q[activeIdx].pop();
-        activeIdx ^= 1;
-        return ret;
+        return que.front();
     }
 
     /** Returns whether the stack is empty. */
     bool empty() {
-        return q[activeIdx].empty();
-    }
-private:
-    int activeIdx;
-    vector<queue<int>> q;
-    void emptyQueue(){
-        while(q[activeIdx].size() > 1){
-            q[activeIdx ^ 1].push(q[activeIdx].front());
-            q[activeIdx].pop();
-        }
-    }
-    void pushQueue(int x, int activeIdx){
-        q[activeIdx].push(x);
+        return que.empty();
     }
 };
+
 
 int main() {
     MyStack s1;
