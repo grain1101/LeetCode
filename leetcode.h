@@ -60,3 +60,10 @@ void showV(auto& result){
         cout << r << " ";
     cout << endl;
 }
+
+template<class T>
+string to_string(const T& t){
+    ostringstream ss;
+    ss << t;
+    return ss.str();
+}
