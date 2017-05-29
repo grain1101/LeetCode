@@ -7,7 +7,7 @@ public:
         ret = 0;
         if (root == nullptr) return ret;
         preSum.clear();
-        preSum.push_back(0);
+        preSum[0]++;
         target = sum;
         dfs(root, 0);
         return ret;
@@ -15,17 +15,15 @@ public:
 private:
     int ret;
     int target;
-    vector<int> preSum;
+    unordered_map<int, int> preSum;
     void dfs(TreeNode* root, long long sum){
         if (root == nullptr) return;
         sum += root->val;
-        for(auto n : preSum){
-            if (sum - n == target) ret++;
-        }
-        preSum.push_back(sum);
+        ret += preSum[sum - target];
+        preSum[sum]++;
         dfs(root->left, sum);
         dfs(root->right, sum);
-        preSum.pop_back();
+        preSum[sum]--;
     }
 };
 
