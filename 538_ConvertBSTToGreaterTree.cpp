@@ -4,7 +4,18 @@
 class Solution {
 public:
     TreeNode* convertBST(TreeNode* root) {
-
+        tmp = 0;
+        dfs(root);
+        return root;
+    }
+private:
+    int tmp;
+    void dfs(TreeNode* root){
+        if (root == nullptr) return ;
+        dfs(root->right);
+        root->val += tmp;
+        tmp = root->val;
+        dfs(root->left);
     }
 };
 
