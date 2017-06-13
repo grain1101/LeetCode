@@ -1,50 +1,44 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <cstring>
-#include <algorithm>
-#include <stack>
-#include <queue>
-#include <cstdio>
-#include <cstdlib>
-#include <sstream>
-#include <limits>
-using namespace std;
+#include "leetcode.h"
 
-void show(auto& result){
-    for(auto r : result){
-        for(auto t : r){
-            cout << t;
-        }
-        cout << endl;
-    }
-}
-
+// 78. Subsets
 class Solution {
-  public:
-    // 78. Subsets
-    void dfs(vector<vector<int>>& result, vector<int>& path, vector<int>& nums, int level){
+public:
+    //recursive
+    vector<vector<int>> subsets_dfs(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ret;
+        vector<int> path;
+        dfs(0,nums, path, ret);
+        return ret;
+    }
+    // iterative
+    vector<vector<int>> subsets(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ret(1, vector<int>());
+        for(int i = 0; i < nums.size(); i++){
+            int n = ret.size();
+            for(int j = 0; j < n; j++){
+                ret.push_back(ret[j]);
+                ret.back().push_back(nums[i]);
+            }
+        }
+        return ret;
+    }
+private:
+    void dfs(int level, vector<int>& nums, vector<int>& path, vector<vector<int>>& ret){
+        ret.push_back(path);
         for(int i = level; i < nums.size(); i++){
             path.push_back(nums[i]);
-            result.push_back(path);
-            dfs(result, path, nums, i + 1);
+            dfs(i + 1, nums, path, ret);
             path.pop_back();
         }
-    }
-    vector<vector<int>> subsets(vector<int>& nums) {
-        vector<vector<int>> result;
-        vector<int> path;
-        result.push_back(path);
-        dfs(result, path, nums, 0);
-        return result;
     }
 };
 
 int main() {
-    vector<int> nums = {1,2,3};
     Solution s1;
-    auto result = s1.subsets(nums);
-    show(result);
-    cout << result.size() << endl;
-    return 0;
+    //vector<int> nums = {48,66,61,46,94,75};
+    vector<int> nums = {1,2,3};
+    auto ans = s1.subsets(nums);
+    //cout << ans << endl;
 }
