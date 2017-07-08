@@ -12,10 +12,12 @@
 #include <limits>
 #include <set>
 #include <string>
-#include<list>
-
+#include <list>
+#include <time.h>
+#include <cassert>
 using namespace std;
 
+typedef pair<int,int> PII;
 struct ListNode {
     int val;
     ListNode *next;
@@ -56,7 +58,7 @@ void show(auto& result){
     }
 }
 
-void showV(auto& result){
+void showV(const auto& result){
     for(auto r : result)
         cout << r << " ";
     cout << endl;
@@ -67,4 +69,24 @@ string to_string(const T& t){
     ostringstream ss;
     ss << t;
     return ss.str();
+}
+
+template<class T>
+long long stoll(const T& t){
+    if (t.size() == 0) return 0;
+    long long ret = 0;
+    for(auto c : t){
+        ret = ret * 10 + c - '0';
+    }
+    return ret;
+}
+
+template<class T>
+int stoi(const T& t){
+    if (t.size() == 0) return 0;
+    int ret = 0;
+    for(auto c : t){
+        ret = ret * 10 + c - '0';
+    }
+    return ret;
 }
