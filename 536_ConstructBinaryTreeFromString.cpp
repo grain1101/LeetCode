@@ -6,36 +6,33 @@ public:
     // 536 Construct Binary Tree from String
     TreeNode* str2tree(string s) {
         if (s.size() == 0) return nullptr;
-        int flag = 1;
-        stack<TreeNode*> st;
-        int tmp = 0;
+        int idx = 0;
+        return dfs(s, idx);
+    }
+    TreeNode* dfs(const string& s, int& idx){
         TreeNode* root = nullptr;
-        for(int i = 0; i < s.size(); i++){
-            //cout << i << endl;
-            if (s[i] == '-') flag = -1;
-            else if (isdigit(s[i])) {
-                while(i < s.size() && isdigit(s[i]))
-                    tmp = tmp * 10 + s[i++] - '0';
-                TreeNode* cur = new TreeNode(tmp * flag);
-                tmp = 0;
-                flag = 1;
-                st.push(cur);
-                if (root == nullptr) {
-                    root = cur;
+        int tmp = 0;
+        int flag = 1;
+        for(idx; idx < s.size(); idx++){
+            if (s[idx] == '-') flag = -1;
+            else if (isdigit(s[idx])) {
+                while(idx < s.size() && isdigit(s[idx])){
+                    tmp = tmp * 10 + s[idx++] - '0';
                 }
-                i--;
+                root = new TreeNode(tmp);
+                idx--;
             }else {
-                if (s[i] == ')'){
-                    TreeNode* cur = st.top();
-                    st.pop();
-                    if (st.empty()) break;
-                    if (st.top()->left == nullptr) st.top()->left = cur;
-                    else  st.top()->right = cur;
+                if (s[idx] == '('){
+                    idx++;
+                    TreeNode* tmp = dfs(s, idx);
+                    if (root->left == nullptr) root->left = tmp;
+                    else root->right = tmp;
+                } else {
+                    return root;
                 }
             }
         }
-        //cout << st.size() << endl;
-        return st.top();
+        return root;
     }
     string tree2string(TreeNode* root){
         if (root == nullptr) return "";
