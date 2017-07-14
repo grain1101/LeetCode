@@ -14,7 +14,7 @@
 #include <string>
 #include <list>
 #include <time.h>
-#include <cassert>
+//#include <cassert>
 using namespace std;
 
 typedef pair<int,int> PII;
@@ -47,6 +47,20 @@ struct RandomListNode {
      int label;
      RandomListNode *next, *random;
      RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
+};
+
+class NestedInteger {
+public:
+  // Return true if this NestedInteger holds a single integer, rather than a nested list.
+  bool isInteger() const;
+
+  // Return the single integer that this NestedInteger holds, if it holds a single integer
+  // The result is undefined if this NestedInteger holds a nested list
+  int getInteger() const;
+
+  // Return the nested list that this NestedInteger holds, if it holds a nested list
+  // The result is undefined if this NestedInteger holds a single integer
+  const vector<NestedInteger> &getList() const;
 };
 
 void show(auto& result){
