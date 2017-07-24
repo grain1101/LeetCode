@@ -8,14 +8,12 @@ Tree Recursive
 
 class Solution {
 public:
-    // 270 	Closest Binary Search Tree Value
+    // 270_Closest Binary Search Tree Value
     int closestValue(TreeNode* root, double target) {
         int ret = root->val;
-        while(root){
-            if (root->val == target) return target;
-            if (abs(root->val - target) <= abs(ret->val - target)) ret = root->val;
-            if (root->val < target) root = root->right;
-            else root = root->left;
+        while (root) {
+            if (abs(root->val - target)<abs(ret - target)) ret = root->val;
+            root = target < root->val ? root->left : root->right;
         }
         return ret;
     }
