@@ -14,7 +14,6 @@ public:
         while(root){
             if (root->val == target) return target;
             if (abs(root->val - target) <= abs(ret->val - target)) ret = root->val;
-            ret = min(ret, abs(root->val - target));
             if (root->val < target) root = root->right;
             else root = root->left;
         }
