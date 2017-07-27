@@ -1,13 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <cstring>
-#include <algorithm>
-#include <stack>
-#include <queue>
-using namespace std;
-
-struct ListNode {
+ struct ListNode {
     int val;
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
@@ -51,28 +42,3 @@ class Solution {
     }
 };
 
-int main() {
-    // 1. Input test cases
-    int num = 999;
-    vector<int> nums = {1, 0, -1, 0, -2, 2};
-    string s = "()[[]{}";
-//    string ss2 = "ab*bbc";
-    vector<string> strs = {"ab","abb","abc"};
-    ListNode* head = new ListNode(1);
-    int n = 3;
-    vector<ListNode*> lists;
-
-    // 2. Run
-    Solution s1;
-    auto result = s1.mergeKLists(lists);
-    // 3. Compare output
-
-//    for(auto n : result) {
-//        for(auto num : n) {
-//            cout << num << " ";
-//        }
-//        cout << endl;
-//    }
-//    cout << result << endl;
-    return 0;
-}

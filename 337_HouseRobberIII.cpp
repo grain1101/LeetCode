@@ -1,5 +1,20 @@
 #include "leetcode.h"
-
+/*
+     3
+    / \
+   2   3
+    \   \ 
+     3   1
+Maximum amount of money the thief can rob = 3 + 3 + 1 = 7.
+        4
+       /
+      1
+     /
+    2
+   /
+  3
+ Maximum amount of money the thief can rob =4 + 3 = 7 
+*/
 class Solution {
 public:
     // 337. House Robber III
@@ -20,17 +35,17 @@ private:
         return ret;
     }
 
-    int rob_naive(TreeNode* root) {
-        if (root == nullptr) return 0;
-        int val = 0;
-        if (!root->left){
-            val += rob_naive(root->left->left) + rob_naive(root->left->right);
-        }
-        if (!root->right){
-            val += rob_naive(root->right->left) + rob_naive(root->right->left);
-        }
-        return max(val + root->val, rob_naive(root->left) + rob_naive(root->right));
-    }
+    // int rob_naive(TreeNode* root) {
+    //     if (root == nullptr) return 0;
+    //     int val = 0;
+    //     if (!root->left){
+    //         val += rob_naive(root->left->left) + rob_naive(root->left->right);
+    //     }
+    //     if (!root->right){
+    //         val += rob_naive(root->right->left) + rob_naive(root->right->left);
+    //     }
+    //     return max(val + root->val, rob_naive(root->left) + rob_naive(root->right));
+    // }
 };
 
 int main() {

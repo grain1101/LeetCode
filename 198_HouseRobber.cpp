@@ -1,60 +1,48 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <unordered_set>
-#include <cstring>
-#include <algorithm>
-#include <stack>
-#include <queue>
-#include <cstdio>
-#include <cstdlib>
-#include <sstream>
-#include <limits>
-#include <set>
-#include <string>
-using namespace std;
-
-void show(auto& result){
-    for(auto r : result){
-        for(auto t : r){
-            cout << t << " ";
-        }
-        cout << endl;
-    }
-}
-void showV(auto& result){
-    for(auto r : result)
-        cout << r << " ";
-    cout << endl;
-}
-
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
- };
-
- struct TreeNode {
-    int val;
-    TreeNode *parent;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL), parent(NULL) {}
-};
+#include "leetcode.h"
+/*
+DP
+这道题的本质相当于在一列数组中取出一个或多个不相邻数，使其和最大。
+*/ 
 
 class Solution {
 public:
-    // 198. House Robber
-    int rob(vector<int>& nums) {
-        if (nums.size() < 1) return 0;
-        if (nums.size() == 1) return nums[0];
-        vector<int> dp(nums.size(), 0);
-        dp[0] = nums[0];
-        dp[1] = nums[1];
-        for(int i = 2; i < nums.size(); i++){
-            dp[i] = max(dp[i - 3], dp[i - 2]) + nums[i];
+    int rob(vector<int> &num) {
+        if (num.size() <= 1) return num.empty() ? 0 : num[0];
+        vector<int> dp = {num[0], max(num[0], num[1])};
+        for (int i = 2; i < num.size(); ++i) {
+            dp.push_back(max(num[i] + dp[i - 2], dp[i - 1]));
         }
-        return max(dp[nums.size() - 1], dp[nums.size() - 2]);
+        return dp.back();
+    }
+};
+
+class Solution2 {
+public:
+    int rob(vector<int> &num) {
+        int a = 0, b = 0;
+        for (int i = 0; i < num.size(); ++i) {
+            if (i % 2 == 0) {
+                a += num[i];
+                a = max(a, b);
+            } else {
+                b += num[i];
+                b = max(a, b);
+            }
+        }
+        return max(a, b);
+    }
+};
+
+class Solution3 {
+public:
+    int rob(vector<int> &nums) {
+        int a = 0, b = 0;
+        for (int i = 0; i < nums.size(); ++i) {
+            int m = a, n = b;
+            a = n + nums[i];
+            b = max(m, n);
+        }
+        return max(a, b);
     }
 };
 

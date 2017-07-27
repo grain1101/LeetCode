@@ -33,7 +33,7 @@ void show(auto& result){
 class Solution {
   public:
     // 56. Merge Intervals
-    static bool cmp(const Interval a, const Interval b){
+    static bool cmp(const Interval a, const Interval b) {
         return a.start < b.start;
     }
     vector<Interval> merge(vector<Interval>& intervals) {

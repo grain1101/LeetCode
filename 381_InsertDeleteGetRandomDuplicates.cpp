@@ -1,7 +1,8 @@
 #include "leetcode.h"
 /**
 use two data structure: hash map and vector.
-unordered_map<val, idx>
+unordered_map<val, set<idx>>
+m
 vector, swap(remove, end) O(1)remove end;
 Caution: update unordered_map[end] idx;
 Leetcode: 381. Insert Delete GetRandom O(1) - Duplicates allowed
@@ -25,13 +26,18 @@ public:
     }
 
     /** Removes a value from the collection. Returns true if the collection contained the specified element. */
+    // O(1) remove;
+    // swap(position, end);
+    // v.pop_back();
     bool remove(int val) {
+        // m[value] = unordered_set<ind>(idx);
         if (m.find(val) == m.end()) return false;
-        int r = *m[val].begin();
-        m[val].erase(r);
-        if (m[val].empty()) m.erase(val);
+        int r = *m[val].begin();    // find one position of val in unordered_set;
+        m[val].erase(r);            // erase from unordered_set
+        if (m[val].empty()) m.erase(val);   // if the unordered_set is empty, hashmap need to erase it.
         int vSize = v.size() - 1;
-        m[v[vSize]].insert(r);
+        int endValue = v[vSize];
+        m[v[vSize]].insert(r);      // insert end element's new idx(position) into hashmap;
         m[v[vSize]].erase(vSize);
         if (m[v[vSize]].empty()) m.erase(v[vSize]);
         swap(v[r], v[vSize]);
@@ -42,15 +48,6 @@ public:
     /** Get a random element from the collection. */
     int getRandom() {
         return v[rand() % v.size()];
-    }
-    void show(){
-        showV(v);
-        cout << "m:";
-        for(auto p : m) {
-            cout << p.first << endl;
-            cout << "p.second ";
-            showV(p.second);
-        }
     }
 private:
     vector<int> v;

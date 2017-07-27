@@ -1,34 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <unordered_set>
-#include <cstring>
-#include <algorithm>
-#include <stack>
-#include <queue>
-#include <cstdio>
-#include <cstdlib>
-#include <sstream>
-#include <limits>
-#include <set>
-#include <string>
-#include<list>
-using namespace std;
-
-void show(auto& result){
-    for(auto r : result){
-        for(auto t : r){
-            cout << t << " ";
-        }
-        cout << endl;
-    }
-}
-void showV(auto& result){
-    for(auto r : result)
-        cout << r << " ";
-    cout << endl;
-}
-
 class Solution {
 public:
     // 215. Kth Largest Element in an Array
@@ -69,12 +38,3 @@ public:
 private:
     int heap_size;
 };
-
-int main() {
-    Solution s1;
-    vector<int> nums = {1};
-    int k = 1;
-    auto ans = s1.findKthLargest(nums, k);
-    cout << ans << endl;
-    //showV(ans);
-}

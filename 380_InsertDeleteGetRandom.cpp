@@ -7,7 +7,6 @@ Caution: update unordered_map[end] idx;
 Leetcode: 380_Insert Delete GetRandom O(1)
 */
 
-
 class RandomizedSet {
 public:
     /** Initialize your data structure here. */
@@ -16,7 +15,7 @@ public:
     }
 
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
-    bool insert(int val) {
+    bool insert(int val) {      //O(1)
         if (mapping.find(val) != mapping.end()) return false;
         mapping[val] = v.size();
         v.push_back(val);
@@ -24,7 +23,7 @@ public:
     }
 
     /** Removes a value from the set. Returns true if the set contained the specified element. */
-    bool remove(int val) {
+    bool remove(int val) {      //O(1)
         if (mapping.find(val) == mapping.end()) return false;
         mapping[v[v.size() - 1]] = mapping[val];
         swap(v[mapping[val]], v[v.size() - 1]);
@@ -34,7 +33,7 @@ public:
     }
 
     /** Get a random element from the set. */
-    int getRandom() {
+    int getRandom() {       //O(1)
         return v[rand() % v.size()];
     }
 private:
