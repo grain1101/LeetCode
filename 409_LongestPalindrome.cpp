@@ -3,23 +3,19 @@
 // 409. Longest Palindrome
 class Solution {
 public:
-    int longestPalindrome(string s) {
-        vector<int> chars(26*2);
-        for(int i = 0; i < s.size(); i++){
-            if (s[i] >= 'a' && s[i] <= 'z') chars[s[i]-'a']++;
-            else chars[s[i]-'A'+26]++;
-        }
-        int ret = 0;
-        int flag = 0;
-        for(int i = 0; i < s.size(); i++){
-            if (chars[i] % 2 == 0) ret += chars[i];
-            else {
-                flag = 1;
-                ret += chars[i] - 1;
+     int longestPalindrome(string s) {
+        int ret = 0, mid = 0;
+        unordered_map<char, int> m;
+        for(auto c : s) m[c]++;
+        for(auto it = m.begin(); it!=m.end(); it++) {
+            ret += it->second;
+            if (it->second % 2) {
+                ret -= 1;
+                mid = 1;
             }
         }
-        return ret + flag;
-    }
+        return ret + mid;
+     }
 };
 
 int main() {

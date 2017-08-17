@@ -24,31 +24,23 @@ class Solution {
   public:
     // 76. Minimum Window Substring
     string minWindow(string s, string t) {
-        int Tcnt[256] = {0};
-        for(int i = 0; i < t.size(); i++){
-            Tcnt[t[i]]++;
-        }
-        int need = t.size();
-        int Stmp[256] = {0};
-        string ans;
-        int l = 0;
+        if (s.empty() || t.empty() || s.size() < t.size()) return "";
+        vector<int> m(256, 0);
+        for(auto c : t) m[c]++;
+        string ret = "";
+        int p = 0, cnt = 0;
         for(int i = 0; i < s.size(); i++){
-            Stmp[s[i]]++;
-            if (Stmp[s[i]] <= Tcnt[s[i]]){ // s[i] is in string t
-                need--;
-            }
-            while(need == 0){
-                // update ans
-                if (ans.size() == 0 || ans.size() > i - l + 1){
-                    ans = s.substr(l, i - l + 1);
+            m[s[i]]--;
+            if (m[s[i]] >= 0) cnt++;
+            if (cnt == t.size()) {
+                while(m[s[p]] + 1 <= 0) {
+                    m[s[p]]++;
+                    p++;
                 }
-                // slide l to remove s[l] in Stmp[s[l]]
-                Stmp[s[l]]--;
-                if (Stmp[s[l]] < Tcnt[s[l]]) need--;
-                l++;
+                if (ret.size() == 0 || ret.size() > i - p + 1) ret = s.substr(p, i - p + 1);
             }
         }
-        return ans;
+        return ret;
     }
 };
 
