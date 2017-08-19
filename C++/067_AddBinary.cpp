@@ -25,25 +25,18 @@ class Solution {
   public:
     // 67. Add Binary
     string addBinary(string a, string b) {
-        int m = a.size();
-        int n = b.size();
-        if(m == 0) return b;
-        if(n == 0) return a;
-        int p = m - 1;
-        int q = n - 1;
-        string ans;
-        int carry = 0;
-        while(p >= 0 || q >= 0 || carry){
-            int num_a = p>=0 ? a[p] - '0' : 0;
-            int num_b = q>=0 ? b[q] - '0' : 0;
-            carry += num_a + num_b;
-            ans.push_back(carry%2 + '0');
-            carry /= 2;
-            p--;
-            q--;
+        int carry = 0, m = a.size() - 1, n = b.size() - 1;
+        string ret = "";
+        while(m >= 0 || n >= 0 || carry) {
+            int numa = (m>=0 ? a[m] - '0' : 0);
+            int numb = (n>=0 ? b[n] - '0' : 0);
+            int ans = numa + numb + carry;
+            carry = ans / 2;
+            ret.push_back(ans % 2 + '0');
+            m--; n--;
         }
-        reverse(ans.begin(), ans.end());
-        return ans;
+        reverse(ret.begin(), ret.end());
+        return ret;
     }
 };
 
