@@ -1,0 +1,91 @@
+1. What is difference between JDK, JRE and JVM?
+JVM: is an acronym for "Java Virtual Machine", it is an abstract machine which provides the runtime environment in which java bytecode can be executed. It is a specification. JVMs are available for many hardware and software platforms, so it is platform dependent.
+JRE: "Java Runtime Environment". It is the implementation of JVM.
+JDK: "Java Development Kit". It is physically exists. It contains JRE+development tools.
+2. How many types of memory areas are allocated by JVM?
+- Class(Method) area
+- Heap
+- Stack
+- Program Counter Register
+- Native Method Stack
+3. What is JIT compiler?
+JIT: "Just-IN-Time" compiler. It is used to improve the performance. JIT compiles parts of the byte code that have similar functionality at the same time, and hence reduce the amount of time needed for compilation. 
+4. What is platform?
+basically the hardware or software environment in which a program runs. Java provides software-based platform.
+5. What is the main difference between Java platform and other platforms?
+The Java platform differs from most other platforms in the sense that it's a software-based platform that runs on the top of other hardware-based platforms. It has twwo components: 1. Runtime Environment 2. API
+6. What gives Java it's write once and run anywhere's nature?
+The bytecode. Java is compiled to be a byte code which is the intermediate language between source code and machine code. The byte code is not platform specific and hence can be fed to any platform.
+7. What is classloader?
+The classloader is a subsystem of JVM that is used to load classes and interfaces. There are many types of classloader e.g. Bootstrap classloader, Extension classloader, System classloader, Plugin classloader.
+8. Is Empty .java file name is a valid source file name?
+YES.
+9. Is delete, next, main, exit or null keyword in Java?
+NO.
+10. If I don't provide any arguments on the command line, then the String array of Main method will be empty or null?
+empty.
+11. What if I write static public void instead public static void?
+Program compiles and runs properly.
+12. What is the default value of the local variables?
+The local variables are not initialized to any default value, neither primitives nor object references.
+13. What is difference between object oriented programming language and object based programming language?
+Object based programming languages follow all the feature of OOPs except Inheritance.
+Object based programming languages: Javascript, VBScript etc.
+14. What will be the initial value of an object reference which is defined as an instance variable?
+The object references are all initialized to null in Java.
+15. What is constructor?
+A method that is used to initialize the state of an object. It is invoked at the time of object creation.
+There is no copy constructor in Java.
+16. What is the purpose of default constructor?
+provide the default values to the objects.
+17. Does constructor return any value?
+Yes, that is current instance.
+18. Is constructor inherited?
+No.
+19. Can you make a constructor final?
+NO.
+20. What is static variable?
+static variable is used to refer the common property of all objects.(That is unique for each object) 
+static variable gets memory only once in class area at the time of class loading.
+21. What is static method?
+A static method belongs to the class rather than object of a class
+A static method can be invoked without the need for creating an instance of a class
+Static method can access static data member and can change the value of it.
+There are two main restrictions for the static method.
+- The static method can not use static data member or call non-static method directly.
+- this and super cannot be used in static context.
+ 
+22. Why main method is static?
+because object is not required to call static method if It were non-static method.
+jvm creates object first then call main() method that will lead to the problems of 
+23. What is static block?
+- is used to initialize the static data member
+- is executed before main method at the time of classloading
+24. Can we execute a program without main() method?
+yes. static block.
+25. What if the static modifier is removed from the signature of the main method.
+compiled. Runtime has error.
+26. 
+27. What is "this" in Java?
+keyword refers to the current object.
+28. What is Inheritance?
+Inheritance is a mechanism in which one object acquires all properties and behaviour of another object of another class. It represents IS-A relationship. It is used for code reusability and method overriding.
+29. Which class is the superclass for every class
+object class
+30. Why multiple inheritance is not supported in Java?
+To reduce the complexity and simplify the language, multiple inheritance is not supported in java.
+31. What is composition?
+Holding the reference of the other class within some other class is known as composition.
+32. What is difference between aggregation and composition?
+Aggregation represents weak relationship; Composition represents strong relationship.
+33. Why Java does not support pointers?
+Pointer is a variable that refers to the memory addres. They are not used in Java because they are unsafe and complex to understand.
+34. What is super in Java?
+It is a keyword that refers to the immediate parent class object.
+35. Can you use this() and super() both in a constructor?
+NO.
+36. What is object cloning?
+create extra copy of an object.
+37. What is method overloading?
+If a class has multiple methods by same name but different parameters.
+38. 
